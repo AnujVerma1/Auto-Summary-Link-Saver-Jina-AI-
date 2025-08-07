@@ -1,0 +1,106 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
+const SignupForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post('http://localhost:5000/api/auth/signup', {
+        email,
+        password,
+      });
+
+      alert(res.data.message || 'Signup successful!');
+      setEmail('');
+      setPassword('');
+      localStorage.setItem('token', res.data.token);
+      navigate('/dashboard');
+
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.error || 'Signup failed');
+    }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  return (
+    <div className="vh-100 d-flex align-items-center justify-content-center" style={{ background: 'linear-gradient(135deg, #0f2027, #203a43, #2c5364)', minHeight: '100vh' }}>
+      <div
+        className="p-4"
+        style={{
+          maxWidth: '400px',
+          width: '100%',
+          background: 'rgba(255, 255, 255, 0.05)', 
+          borderRadius: '12px',
+          boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          border: '1px solid rgba(255, 255, 255, 0.18)',
+          color: 'white'
+        }}
+      >
+        <h3 className="text-center mb-4">Signup</h3>
+        <form onSubmit={handleSignup}>
+          <div className="mb-3">
+            <label htmlFor="signupEmail" className="form-label">Email</label>
+            <input
+              type="email"
+              className="form-control"
+              id="signupEmail"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="mb-4 position-relative">
+            <label htmlFor="password" className="form-label">Password</label>
+
+            <input
+              type={showPassword ? 'text' : 'password'}
+              className="form-control pe-5"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
+              required
+            />
+
+            <span
+              onClick={togglePasswordVisibility}
+              style={{
+                position: 'absolute',
+                top: '38px',
+                right: '15px',
+                cursor: 'pointer',
+                color: '#6c757d',
+              }}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+          <button type="submit" className="btn btn-success w-100">Signup</button>
+        </form>
+        <p className="mt-3 text-center">
+          Already have an account? <Link to="/">Log In</Link>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default SignupForm;
