@@ -30,7 +30,7 @@ const Dashboard = () => {
         return;
       }
 
-      const res = await axios.get('http://localhost:5000/api/bookmarks', {
+      const res = await axios.get('https://auto-summary-link-saver-jina-ai-backend.onrender.com/api/bookmarks', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBookmarks(res.data);
@@ -53,7 +53,7 @@ const Dashboard = () => {
     if (!window.confirm('Are you sure you want to delete this bookmark?')) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/bookmarks/${id}`, {
+      await axios.delete(`https://auto-summary-link-saver-jina-ai-backend.onrender.com/api/bookmarks/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchBookmarks();
@@ -74,7 +74,7 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.patch('http://localhost:5000/api/bookmarks/reorder', {
+      await axios.patch('https://auto-summary-link-saver-jina-ai-backend.onrender.com/api/bookmarks/reorder', {
         reorderedBookmarks: items.map((bm, index) => ({
           id: bm.id,
           order_index: index

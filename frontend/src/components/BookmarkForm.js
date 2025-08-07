@@ -14,7 +14,7 @@ const BookmarkForm = ({ onBookmarkSaved }) => {
       const token = localStorage.getItem('token');
 
       await axios.post(
-        'http://localhost:5000/api/bookmarks',
+        'https://auto-summary-link-saver-jina-ai-backend.onrender.com/api/bookmarks',
         {
           url,
           title,

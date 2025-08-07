@@ -14,7 +14,7 @@ const SignupForm = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', {
+      const res = await axios.post('https://auto-summary-link-saver-jina-ai-backend.onrender.com/api/auth/signup', {
         email,
         password,
       });
