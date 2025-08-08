@@ -1,3 +1,4 @@
+Auto-Summary-Link-Saver (in MASTER branch)
 
 A full-stack web application to save, organize, and manage bookmarks efficiently.  
 Features include list, view, delete bookmarks, save url with titile and favicon, drag-and-drop reordering, AI-powered summaries using Jina AI API, tag-based filtering, and JWT-secured authentication.
